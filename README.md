@@ -1,20 +1,4 @@
 # Backend (Django)
-
-## Demo Screenshots
-
-Inserting Data into Tables
-![Adding Tables](Demo/Adding_Tables.png)
-
-User Tables
-![Users](Demo/Users.png)
-
-Library Tables
-![Library User1](Demo/Library_User1.png)
-
-Song Tables
-![Songs](Demo/Songs.png)
-
-
 ## How to run/install
 
 
@@ -34,7 +18,13 @@ in command prompt
 "(.venv) PS D:\directory>" should show up like this.
 
 
-### 3. install the requirements.
+### 3. get into backend directory.
+```python
+cd backend
+```
+
+
+### 4. install the requirements.
 ```python
 pip install -r .\requirements.txt
 ```
@@ -45,15 +35,34 @@ if some still missing after try running server, use this.
 python -m pip install ...
 ```
 
-### 4. migrate the sqlite3.
+
+### 5. migrate the sqlite3.
 make tables for sqlite3.
 ```bash
 python manage.py migrate 
 ```
 
-### 5. run the testing server.
+
+### 6. run the testing server.
 make sure you're in the same directory as manage.py, in this case is backend.
 ```bash
 python manage.py runserver 
 ```
+
+
+## Demo Screenshots
+
+Inserting Data into Tables
+![Adding Tables](Demo/Adding_Tables.png)
+
+User Tables
+![Users](Demo/Users.png)
+
+Library Tables
+![Library User1](Demo/Library_User1.png)
+
+Song Tables
+![Songs](Demo/Songs.png)
+
+
 $${\color{white}End}$$
