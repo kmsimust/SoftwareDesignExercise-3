@@ -11,8 +11,13 @@ python -m venv .venv
 
 
 ### 2. activate environment in terminal.
+For window:
 ```python
 .\.venv\Scripts\activate
+```
+For linux/mac
+```python
+source venv/bin/activate
 ```
 in command prompt  
 "(.venv) PS D:\directory>" should show up like this.
