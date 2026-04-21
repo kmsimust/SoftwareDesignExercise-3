@@ -4,6 +4,9 @@ from . import views
 app_name = "users"
 
 urlpatterns = [
+    # Login (POST)
+    path("login/", views.user_login, name="user-login"),
+
     # List all users (GET) — supports ?name=
     path("", views.user_list, name="user-list"),
 

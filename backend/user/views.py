@@ -3,8 +3,13 @@ from django.http import JsonResponse
 from django.views.decorators.http import require_http_methods
 from django.views.decorators.csrf import csrf_exempt
 import json
+import jwt
+from datetime import datetime, timedelta
 
 from .models import User
+from library.models import Library
+
+SECRET_KEY = "your-secret-key-change-this"  # Use Django settings.SECRET_KEY in production
 
 
 def _serialize(user):
@@ -13,6 +18,43 @@ def _serialize(user):
         "name":  user.name,
         "email": user.email,
     }
+
+
+def _generate_token(user):
+    """Generate JWT token for user"""
+    payload = {
+        'user_id': user.pk,
+        'email': user.email,
+        'exp': datetime.utcnow() + timedelta(days=7),
+        'iat': datetime.utcnow()
+    }
+    return jwt.encode(payload, SECRET_KEY, algorithm='HS256')
+
+
+@csrf_exempt
+@require_http_methods(["POST"])
+def user_login(request):
+    try:
+        body = json.loads(request.body)
+    except json.JSONDecodeError:
+        return JsonResponse({"error": "Invalid JSON body."}, status=400)
+
+    email = body.get("email")
+
+    if not email:
+        return JsonResponse({"error": "email is required."}, status=400)
+
+    try:
+        user = User.objects.get(email=email)
+    except User.DoesNotExist:
+        return JsonResponse({"error": "User not found."}, status=404)
+
+    token = _generate_token(user)
+    return JsonResponse({
+        "message": "Login successful",
+        "token": token,
+        "user": _serialize(user)
+    }, status=200)
 
 
 @require_http_methods(["GET"])
@@ -50,7 +92,16 @@ def user_create(request):
         return JsonResponse({"error": "A user with this email already exists."}, status=400)
 
     user = User.objects.create(name=name, email=email)
-    return JsonResponse(_serialize(user), status=201)
+    
+    # Create library for the user
+    Library.objects.create(user=user)
+    
+    token = _generate_token(user)
+    return JsonResponse({
+        "message": "User created successfully",
+        "token": token,
+        "user": _serialize(user)
+    }, status=201)
 
 
 @csrf_exempt
