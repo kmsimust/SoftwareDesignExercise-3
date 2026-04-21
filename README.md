@@ -47,12 +47,41 @@ make tables for sqlite3.
 python manage.py migrate 
 ```
 
+### 5.5. Set up environment variables (optional for Suno API).
+Copy `backend/.env.example` to `backend/.env` and fill in your actual values, such as the Suno API token.
+
+See [backend/.env.example](backend/.env.example) for details.
+
 
 ### 6. run the testing server.
 make sure you're in the same directory as manage.py, in this case is backend.
 ```bash
 python manage.py runserver 
 ```
+
+
+# Frontend (Next.js)
+## How to run/install
+
+### 1. Ensure Node.js is installed.
+Download and install Node.js from [nodejs.org](https://nodejs.org/). This includes npm.
+
+### 2. Get into frontend directory.
+```bash
+cd frontend
+```
+
+### 3. Install the dependencies.
+```bash
+npm install
+```
+
+### 4. Run the development server.
+```bash
+npm run dev
+```
+
+The frontend should now be running on `http://localhost:3000` (or the port specified in next.config.ts).
 
 
 ## Demo Screenshots
