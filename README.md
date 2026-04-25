@@ -98,5 +98,14 @@ Library Tables
 Song Tables
 ![Songs](Demo/Songs.png)
 
+library_song
+![Songs](Demo/library_song.png)
+
+generate_song
+![Songs](Demo/generate_song.png)
+
+watch_song
+![Songs](Demo/watch_song.png)
+
 
 $${\color{white}End}$$
